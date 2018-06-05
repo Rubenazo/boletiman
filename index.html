@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
         <link rel="stylesheet" type="text/css" href="css/simplebar.css">
-
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/ticktr.css">
     </head>
     <body>
@@ -101,11 +101,19 @@
                                         <label for="height">Height</label>
                                     </div>
                                 </div>
-                                <button class="btn purple darken-3 waves-effect waves-light" @click="ticktrInit(x, y)">Start</button>
+                                <button class="btn purple darken-3 waves-effect waves-light" @click="ticktrInit()">Start</button>
                             </div>
 
                             <div id="ticktr" class="section center">
-                                <table class="ticktrTable"></table>
+                                <table class="ticktrTable">
+                                    <tbody>
+                                        <tr v-for="(row, i) in stage">
+                                            <td v-for="(cell, j) in stage[i]" :data-x="i" :data-y="j">
+                                                <i v-if="cell.element" class="material-icons" :class="cell.element.color + '-text rot' + cell.element.rotation">{{ cell.element.icon }}</i>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

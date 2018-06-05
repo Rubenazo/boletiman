@@ -3,7 +3,6 @@ var app = new Vue({
   data: {
     x: 10,
     y: 10,
-    stage: [],
     elements: [
       { id: 0, name: 'clear', color: 'white', icon: '' },
       { id: 1, name: 'seat', color: 'green', icon: 'event_seat' },
@@ -28,26 +27,21 @@ var app = new Vue({
     },
     zone: function() {
       return this.zones[this.zoneId];
+    },
+    stage: function() {
+      var stage = [];
+      for (let i = 0; i < this.y; i++) {
+        stage.push([]);
+        for (let j = 0; j < this.x; j++) {
+          stage[i].push({});
+        }
+      }
+      return stage;
     }
   },
   methods: {
-    ticktrInit: function(x, y) {
-      if (x && y) {
-        var ticktrTable = $('.ticktrTable');
-        ticktrTable.empty();
-        this.stage = [];
-        for (let i = 0; i < y; i++) {
-          ticktrTr = document.createElement('tr');
-          ticktrTable.append(ticktrTr);
-          this.stage.push([]);
-          for (let j = 0; j < x; j++) {
-            ticktrTd = document.createElement('td');
-            ticktrTd.dataset.x = i;
-            ticktrTd.dataset.y = j;
-            ticktrTr.appendChild(ticktrTd);
-            this.stage[i].push({});
-          }
-        }
+    ticktrInit: function() {
+      if (this.x && this.y) {
         $('.tabs').tabs('select', 'ticktr');
       }
     },
