@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Boletiman</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
+        <link rel="stylesheet" type="text/css" href="css/simplebar.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/ticktr.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons">
+    </head>
+    <body>
+        <div>
+            <ul id="slide-out" class="sidenav sidenav-fixed" data-simplebar>
+                <li>
+                    <div class="user-view">
+                        <div class="background">
+                            <img src="img/stage.jpg">
+                        </div>
+                        <a href="#user"><img class="circle" src="img/profile.jpg"></a>
+                        <a href="#name"><span class="white-text name">Test Subject</span></a>
+                        <a href="#email"><span class="white-text email">test@subject.com</span></a>
+                    </div>
+                </li>
+                
+                <li class="no-padding">
+                    <ul class="collapsible collapsible-accordion">
+                        <li>
+                            <a class="collapsible-header waves-effect"><i class="material-icons">lightbulb_outline</i>Elements</a>
+                            <div class="collapsible-body">
+                                <ul>
+                                    <li><a href="#!" class="ticktr-element waves-effect waves-light" data-element="0"><i class="material-icons">delete</i>Clear</a></li>
+                                    <li><a href="#!" class="ticktr-element waves-effect waves-green" data-element="1"><i class="material-icons">event_seat</i>Seat</a></li>
+                                    <li><a href="#!" class="ticktr-element waves-effect waves-orange" data-element="2"><i class="material-icons">fullscreen</i>Stage</a></li>
+                                    <li><a href="#!" class="ticktr-element waves-effect" data-element="3"><i class="material-icons">line_weight</i>Stair</a></li>
+                                    <li><a href="#!" class="ticktr-reset waves-effect waves-light" @click="ticktrInit(x, y)"><i class="material-icons">refresh</i>Reset</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="collapsible-header waves-effect"><i class="material-icons">screen_rotation</i>Rotations</a>
+                            <div class="collapsible-body">
+                                <ul>
+                                    <li><a href="#!" class="ticktr-rotation waves-effect" data-rotation="0"><i class="material-icons">arrow_downward</i>0°</a></li>
+                                    <li><a href="#!" class="ticktr-rotation waves-effect" data-rotation="90"><i class="material-icons">arrow_back</i>90°</a></li>
+                                    <li><a href="#!" class="ticktr-rotation waves-effect" data-rotation="180"><i class="material-icons">arrow_upward</i>180°</a></li>
+                                    <li><a href="#!" class="ticktr-rotation waves-effect" data-rotation="270"><i class="material-icons">arrow_forward</i>270°</a></li>
+
+                                    <li><a href="#!" class="ticktr-rotation waves-effect" data-rotation="45"><i class="material-icons rot45">arrow_downward</i>45°</a></li>
+                                    <li><a href="#!" class="ticktr-rotation waves-effect" data-rotation="135"><i class="material-icons rot45">arrow_back</i>135°</a></li>
+                                    <li><a href="#!" class="ticktr-rotation waves-effect" data-rotation="225"><i class="material-icons rot45">arrow_upward</i>225°</a></li>
+                                    <li><a href="#!" class="ticktr-rotation waves-effect" data-rotation="315"><i class="material-icons rot45">arrow_forward</i>315°</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="collapsible-header waves-effect"><i class="material-icons">picture_in_picture</i>Zones</a>
+                            <div class="collapsible-body">
+                                <ul id="zones">
+                                    <li v-for="zone in zones"><a href="#!" class="ticktr-zone waves-effect" :data-zone="zone.id"><i class="material-icons" :style="{ color: zone.color }">format_color_fill</i>{{ zone.name }}</a></li>
+                                    <li><a href="#newZone" class="waves-effect modal-trigger"><i class="material-icons">library_add</i>Add new</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#!" class="ticktr-save waves-effect"><i class="material-icons">save</i>Save</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <main>
+                <nav>
+                    <div class="nav-wrapper purple darken-3">
+                        <a href="#" class="brand-logo center">Boletiman</a>
+                        <ul id="nav-mobile" class="left hide-on-med-and-down">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Pricing</a></li>
+                            <li><a href="#">My Stages</a></li>
+                        </ul>
+                        <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                    </div>
+                </nav>
+                <div class="row">
+                    <ul class="tabs tabs-fixed-width">
+                        <li class="tab col s3"><a href="#ticktr-dimensions" class="active">Dimensions</a></li>
+                        <li class="tab col s3"><a href="#ticktr">Stage Designer</a></li>
+                    </ul>
+                </div>
+                <div class="container" id="app">
+                    <div class="row">
+                        <div class="col s12">
+                            <div id="ticktr-dimensions" class="section center">
+                                <h1>Tiles</h1>
+                                <div class="row">
+                                    <div class="input-field col s4 offset-s2">
+                                        <input type="number" id="width" class="validate" v-model="x" required>
+                                        <label for="width">Width</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <input type="number" id="height" class="validate" v-model="y" required>
+                                        <label for="height">Height</label>
+                                    </div>
+                                </div>
+                                <button class="btn purple darken-3 waves-effect waves-light" @click="ticktrInit()">Start</button>
+                            </div>
+
+                            <div id="ticktr" class="section center">
+                                <table class="ticktrTable">
+                                    <tbody>
+                                        <tr v-for="(row, i) in stage">
+                                            <td v-for="(cell, j) in stage[i]" :data-x="i" :data-y="j">
+                                                <i v-if="cell.element" class="material-icons" :class="cell.element.color + '-text rot' + cell.element.rotation">{{ cell.element.icon }}</i>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <div class="fixed-action-btn">
+                <a class="btn-floating btn-large" :style="{ backgroundColor: zone.color }">
+                    <i class="large material-icons" :class="[{ 'grey-text': !zoneId }, 'rot' + rotation]">{{ element.icon != '' ? element.icon : 'delete' }}</i>
+                </a>
+                <ul>
+                    <li><a class="btn-floating grey"><i class="material-icons">delete</i></a></li>
+                    <li><a class="btn-floating green"><i class="material-icons">event_seat</i></a></li>
+                    <li><a class="btn-floating brown"><i class="material-icons">fullscreen</i></a></li>
+                    <li><a class="btn-floating blue-grey"><i class="material-icons">line_weight</i></a></li>
+                </ul>
+            </div>
+
+            <div id="newZone" class="modal">
+                <div class="modal-content">
+                    <h4>Zone Details</h4>
+                    <div class="input-field">
+                        <input type="text" id="zoneName" class="validate" v-model="newZone.name" required>
+                        <label for="zoneName">Name</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="number" id="zonePrice" class="validate" v-model="newZone.price" required>
+                        <label for="zonePrice">Price</label>
+                    </div>
+                    <div class="input-field">
+                        <md-color-picker id="picker" color-margin="6" colors-per-row="7" color-size="32" default-tint="500" fixedMinHeight="true" palette="material-full" use-spectrum-picker="true" value="#1e88e5"><md-color-picker>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action waves-effect btn-flat" :class="(newZone.name && newZone.price) ? 'modal-close waves-green' : 'waves-red'" @click="addZone()">Add</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
